@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<title>AI Fertilizer Recommendation System</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+<style>
+
+body{
+background: linear-gradient(120deg,#1d976c,#93f9b9);
+font-family: Arial, Helvetica, sans-serif;
+}
+
+.card-box{
+max-width:850px;
+margin:auto;
+margin-top:50px;
+padding:40px;
+border-radius:15px;
+box-shadow:0px 10px 25px rgba(0,0,0,0.2);
+background:white;
+}
+
+.title{
+text-align:center;
+margin-bottom:30px;
+font-weight:bold;
+color:#2c3e50;
+}
+
+.btn-custom{
+background:#27ae60;
+color:white;
+font-size:18px;
+}
+
+.result{
+margin-top:25px;
+padding:18px;
+background:#eafaf1;
+border-radius:10px;
+text-align:center;
+font-size:22px;
+font-weight:bold;
+color:#145a32;
+}
+
+.report{
+margin-top:15px;
+padding:12px;
+background:#fff3cd;
+border-radius:8px;
+text-align:center;
+font-weight:bold;
+}
+
+.explain{
+margin-top:15px;
+padding:12px;
+background:#e8f4ff;
+border-radius:8px;
+}
+
+.graph{
+margin-top:20px;
+text-align:center;
+}
+
+.footer{
+margin-top:30px;
+text-align:center;
+font-size:14px;
+color:gray;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="container">
+
+<div class="card-box">
+
+<h2 class="title">🌾 AI Fertilizer Recommendation System</h2>
+
+<form action="/predict" method="post">
+
+<div class="row">
+
+<div class="col-md-6 mb-3">
+<label>Temperature (°C)</label>
+<input type="number" name="temperature" class="form-control" required>
+</div>
+
+<div class="col-md-6 mb-3">
+<label>Humidity (%)</label>
+<input type="number" name="humidity" class="form-control" required>
+</div>
+
+<div class="col-md-6 mb-3">
+<label>Moisture</label>
+<input type="number" name="moisture" class="form-control" required>
+</div>
+
+<div class="col-md-6 mb-3">
+<label>Soil Type</label>
+
+<select name="soil" class="form-control">
+
+{% for soil in soils %}
+<option value="{{ soil }}">{{ soil }}</option>
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="col-md-6 mb-3">
+<label>Crop Type</label>
+
+<select name="crop" class="form-control">
+
+{% for crop in crops %}
+<option value="{{ crop }}">{{ crop }}</option>
+{% endfor %}
+
+</select>
+
+</div>
+
+<div class="col-md-6 mb-3">
+<label>Nitrogen (N)</label>
+<input type="number" name="nitrogen" class="form-control" required>
+</div>
+
+<div class="col-md-6 mb-3">
+<label>Potassium (K)</label>
+<input type="number" name="potassium" class="form-control" required>
+</div>
+
+<div class="col-md-6 mb-3">
+<label>Phosphorous (P)</label>
+<input type="number" name="phosphorous" class="form-control" required>
+</div>
+
+</div>
+
+<div class="text-center mt-3">
+<button type="submit" class="btn btn-custom px-5">Predict Fertilizer</button>
+</div>
+
+</form>
+
+
+{% if prediction_text %}
+
+<div class="result">
+🌱 {{ prediction_text }}
+</div>
+
+{% endif %}
+
+
+{% if soil_report %}
+
+<div class="report">
+📊 Soil Health Report: {{ soil_report }}
+</div>
+
+{% endif %}
+
+
+{% if explanation %}
+
+<div class="explain">
+
+🤖 <b>AI Explanation</b><br><br>
+
+{{ explanation }}
+
+</div>
+
+{% endif %}
+
+
+{% if graph %}
+
+<div class="graph">
+
+<h5>📈 Soil Nutrient Graph</h5>
+
+<img src="{{ graph }}" width="420">
+
+</div>
+
+{% endif %}
+
+
+<div class="footer">
+
+Smart Agriculture AI • Fertilizer Recommendation System
+
+</div>
+
+</div>
+
+</div>
+
+</body>
+
+</html>
